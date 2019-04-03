@@ -1,39 +1,49 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <title>Auth Test</title>
-    </head>
-    <body>
-        <main>
 
-            <div id="oauth"></div>
+<head>
+  <title>Auth Test</title>
+</head>
 
-        </main>
+<body>
 
-        <script src="http://code.jquery.com/jquery-3.3.1.js"></script>
+  <div id="oauth"></div>
 
-        <script>
+  <script src="http://code.jquery.com/jquery-3.3.1.js"></script>
 
-          let googleURL = "https://accounts.google.com/o/oauth2/v2/auth";
+  <script>
 
-          let options = {
-            client_id:'YOUR-GOOGLE-CLIENT-ID',
-            redirect_uri: 'YOUR-SERVER-URL/oauth',
-            scope: 'email openid profile',
-            prompt: 'consent',
-            response_type: 'code'
-          };
+    /*
+    https://www.amazon.com/ap/oa?client_id=foodev
+    &scope=profile
+    &response_type=code
+    &state=208257577ll0975l93l2l59l895857093449424
+    &redirect_uri=https://client.example.com/auth_popup/token
+    */
 
-          let QueryString = Object.keys(options).map( (key,i) => {
-            return `${key}=` + encodeURIComponent(options[key]);
-          }).join("&");
+    let amazonURL = "https://www.amazon.com/ap/oa";
 
-          let authURL = `${googleURL}?${QueryString}`;
+    let options = {
+      client_id: 'amzn1.application-oa2-client.5ce879078d484277940a8f0e31ac4f70',
+      response_type: 'code',
+      redirect_uri: 'http://localhost:3000/oauth',
+      scope: 'profile',
+    };
 
-          $('#oauth').append(`<a href="${authURL}">Login With Google</a>`);
+    let QueryString = Object.keys(options).map((key, i) => {
+      return `${key}=` + encodeURIComponent(options[key]);
+    }).join("&");
 
-        </script>
+    let authURL = `${amazonURL}?${QueryString}`;
+    console.log(authURL);
+
+    $('#oauth').append(`<a href="${authURL}">Login With Amazon</a>`);
+
+  </script>
 
 
-    </body>
+
+
+</body>
+
 </html>
